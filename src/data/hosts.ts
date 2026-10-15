@@ -101,6 +101,7 @@ export const hosts: Host[] = [
       "The catch is the screenshot price. The number on the homepage is almost always a promo for 12, 24, or 48 months. Month 13 can look like a different product. Read the renewal, not just the hero banner, and decide if you are comfortable prepaying for the term that makes the math work.",
       "Email, SSL, and backups are easy to take for granted until a cheaper host hides them behind add-ons. Hostinger bundles enough of that stack that a first-time buyer is less likely to assemble a frankenstein checkout. It is still shared hosting: noisy neighbors and rigid PHP settings show up if the site gets popular.",
       "Skip it if you already think in Docker, Terraform, or bare Nginx. Hetzner or DigitalOcean will give you more machine and fewer opinions. For everyone else — especially WordPress — this is the lowest-friction path on the list.",
+      "Once the site is up, the next purchase is usually a list, not another host. Hostinger will send mail; it is not an ESP. If you need a form and a welcome sequence, start with the email ranking — Kit if you write, Brevo if you need cheap volume or SMTP.",
     ],
     faqs: [
       {
@@ -114,6 +115,10 @@ export const hosts: Host[] = [
       {
         q: "Hostinger vs Namecheap: which should I buy?",
         a: "Buy Namecheap if you mainly need a domain and a tiny brochure. Buy Hostinger if the website is the point of the purchase. Full comparison: Hostinger vs Namecheap.",
+      },
+      {
+        q: "Does Hostinger replace an email marketing tool?",
+        a: "No. Use Hostinger to publish. Use Kit, Brevo, or Mailchimp to keep the list. The email ranking is the next page after this one.",
       },
     ],
   },
@@ -352,7 +357,7 @@ export const hosts: Host[] = [
       "For a business-card site, an event page, or “I bought the domain today and need something at the apex,” that combination is enough. The intro hosting price is often the lowest on this list. The resources behind it are also the thinnest, which is why it is fifth rather than first.",
       "If you compare equivalent WordPress plans, Hostinger usually gives you more disk, more sites, and a clearer upgrade into VPS without changing brands. That is the trade: Namecheap wins the first invoice; Hostinger usually wins the first year of actually using the site.",
       "Renewals matter twice here — domain and hosting. A promo that looks like $2 hosting plus a $1 domain can become a different story when both renew. Add them together before you call it the cheapest option.",
-      "Keep Namecheap as a registrar even if you host elsewhere. Plenty of people buy the name there and point DNS at Hostinger, Vercel, or Cloudflare. Use Namecheap hosting only when the site is small and you want one bill.",
+      "Keep Namecheap as a registrar even if you host elsewhere. Plenty of people buy the name there and point DNS at Hostinger, Vercel, or Cloudflare. Use Namecheap hosting only when the site is small and you want one bill. The list still belongs in an ESP — see the email ranking — not in the registrar’s incidental mailbox.",
     ],
     faqs: [
       {

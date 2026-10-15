@@ -1,31 +1,35 @@
 ---
-import type { Host } from "../data/hosts";
-import { affiliateUrl } from "../data/hosts";
+import type { RankedPick } from "../data/ranked";
 
-type Props = { host: Host };
-const { host } = Astro.props;
+type Props = {
+  pick: RankedPick;
+  visitUrl: string;
+  markSrc: string;
+};
+
+const { pick, visitUrl, markSrc } = Astro.props;
 ---
 
 <article
-  class:list={["rank-card", { top: host.rank === 1 }]}
-  id={host.slug}
-  data-cats={host.categories.join(" ")}
+  class:list={["rank-card", { top: pick.rank === 1 }]}
+  id={pick.slug}
+  data-cats={pick.categories.join(" ")}
 >
-  <div class="card-accent" style={`background: ${host.accent}`}></div>
+  <div class="card-accent" style={`background: ${pick.accent}`}></div>
   <div class="card-body">
     <div class="card-main">
       <div class="card-head">
-        <div class="rank-num">{host.rank}</div>
-        <img class="host-mark" src={`/hosts/${host.slug}-mark.svg`} alt="" width="48" height="48" />
+        <div class="rank-num">{pick.rank}</div>
+        <img class="host-mark" src={markSrc} alt="" width="48" height="48" />
         <div>
-          <div class="badge">{host.badge}</div>
-          <h2 class="host-name">{host.name}</h2>
+          <div class="badge">{pick.badge}</div>
+          <h2 class="host-name">{pick.name}</h2>
         </div>
       </div>
-      <p class="tagline">{host.tagline}</p>
-      <p class="summary">{host.summary}</p>
+      <p class="tagline">{pick.tagline}</p>
+      <p class="summary">{pick.summary}</p>
       <dl class="spec-grid">
-        {host.specs.map((spec) => (
+        {pick.specs.map((spec) => (
           <div>
             <dt>{spec.label}</dt>
             <dd>{spec.value}</dd>
@@ -36,26 +40,26 @@ const { host } = Astro.props;
         <div>
           <h3>Why it ranks</h3>
           <ul>
-            {host.pros.map((item) => <li>{item}</li>)}
+            {pick.pros.map((item) => <li>{item}</li>)}
           </ul>
         </div>
         <div>
           <h3>Watch out</h3>
           <ul>
-            {host.cons.map((item) => <li>{item}</li>)}
+            {pick.cons.map((item) => <li>{item}</li>)}
           </ul>
         </div>
       </div>
       <div class="verdict">
-        <p><strong>Buy if</strong> {host.buyIf}</p>
-        <p><strong>Skip if</strong> {host.skipIf}</p>
+        <p><strong>Buy if</strong> {pick.buyIf}</p>
+        <p><strong>Skip if</strong> {pick.skipIf}</p>
       </div>
     </div>
     <aside class="cta-col">
       <div class="score-block">
-        <div class="score"><strong>{host.score.toFixed(1)}</strong>/10</div>
+        <div class="score"><strong>{pick.score.toFixed(1)}</strong>/10</div>
         <div class="meters">
-          {host.ratings.map((rating) => (
+          {pick.ratings.map((rating) => (
             <div class="meter">
               <span>{rating.label}</span>
               <div class="meter-bar" aria-label={`${rating.label} ${rating.value} of 5`}>
@@ -66,13 +70,13 @@ const { host } = Astro.props;
         </div>
       </div>
       <p class="price-block">
-        <span class="price">From {host.fromPrice}/mo</span>
-        <span class="muted">{host.priceNote}</span>
+        <span class="price">From {pick.fromPrice}/mo</span>
+        <span class="muted">{pick.priceNote}</span>
       </p>
-      <a class="btn btn-primary" data-affiliate={host.slug} href={affiliateUrl(host)} rel="nofollow sponsored noopener" target="_blank">
-        Visit {host.name}
+      <a class="btn btn-primary" data-affiliate={pick.slug} href={visitUrl} rel="nofollow sponsored noopener" target="_blank">
+        Visit {pick.name}
       </a>
-      <a class="btn btn-ghost" href={`/reviews/${host.slug}`}>{host.name} review</a>
+      <a class="btn btn-ghost" href={`/reviews/${pick.slug}`}>{pick.name} review</a>
     </aside>
   </div>
 </article>

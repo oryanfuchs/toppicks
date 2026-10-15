@@ -1,0 +1,343 @@
+---
+import Base from "../layouts/Base.astro";
+import RankCard from "../components/RankCard.astro";
+import FilterBar from "../components/FilterBar.astro";
+import { emailAffiliateUrl, emailBySlug, emailTools } from "../data/email";
+
+const title = "Best email marketing 2026: five tools, ranked | Top Picks";
+const description =
+  "Best email marketing in 2026, ranked: Kit for creators, Brevo for cheap volume and SMTP, Mailchimp as the familiar starter, Beehiiv for newsletters, GetResponse for automation. Prices, list lock-in, and who should skip each row.";
+const winner = emailTools[0];
+const brevo = emailBySlug("brevo")!;
+const mailchimp = emailBySlug("mailchimp")!;
+
+const emailFilters = [
+  { id: "all", label: "All 5 tools" },
+  { id: "creator", label: "Creators" },
+  { id: "cheap", label: "Cheap" },
+  { id: "newsletter", label: "Newsletters" },
+  { id: "automation", label: "Automation" },
+  { id: "free", label: "Free plan" },
+];
+
+const faqs = [
+  {
+    q: "What is the best email marketing tool in 2026?",
+    a: "For most people who just launched a site or a paid newsletter, Kit. For cheap high-volume or SMTP, Brevo. For a publication with referrals and ads, Beehiiv. There is no single winner for every list.",
+  },
+  {
+    q: "What is the cheapest email marketing platform?",
+    a: "Brevo usually wins if you send a lot to a large quiet list — it bills on volume. Mailchimp and Kit look cheap on a tiny list and get expensive as contacts grow. Beehiiv’s free plan is the cheapest way to publish a newsletter until you need Lite.",
+  },
+  {
+    q: "Should I pick Kit or Mailchimp?",
+    a: "Kit if you are the writer and the list supports a product. Mailchimp if the team already knows it or you want shop-style templates. Read the Kit vs Mailchimp guide.",
+  },
+  {
+    q: "Do I need email marketing if I just bought web hosting?",
+    a: "If the site is supposed to bring people back, yes. Hosting gets the page live. A list is how you talk to them without renting an algorithm. Start on the free rung, then pay when the sequence is doing work.",
+  },
+  {
+    q: "Is Beehiiv just Substack?",
+    a: "Same job, different stack. Beehiiv sits on a domain you own and a host you already paid for. Substack is a walled publication. If you bought Hostinger so the site is yours, Kit or Beehiiv keeps the list yours too.",
+  },
+  {
+    q: "Do you get paid if I click these links?",
+    a: "Some of them, yes. A commission does not change what you pay. It does mean we have an incentive for clicks. Order is not set by commission alone; the disclosure page explains the conflict.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      name: "Best email marketing 2026",
+      description:
+        "Editorial ranking of five email marketing tools for creators, cheap volume, and newsletters.",
+      url: "https://gettoppicks.com/email",
+      numberOfItems: emailTools.length,
+      itemListElement: emailTools.map((tool) => ({
+        "@type": "ListItem",
+        position: tool.rank,
+        name: tool.name,
+        url: new URL(`/reviews/${tool.slug}`, Astro.site).toString(),
+      })),
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ],
+};
+---
+
+<Base title={title} description={description} path="/email">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="kicker">Editorial ranking · October 2026</div>
+          <h1>Best email marketing in 2026, ranked</h1>
+          <div class="hero-copy">
+            <p class="lede">
+              Five ESPs, scored for the job after you have a site: a creator list,
+              cheap volume, a publication, or a funnel. Prices, list lock-in, and
+              who should skip each row.
+            </p>
+            <p>
+              You bought hosting. The next purchase is not another plugin pile. It is
+              a list you can export. We scored public pricing, how fast a non-marketer
+              can send the first email, and whether the tool still makes sense at
+              10,000 subscribers. We did not run an inbox-placement lab. Some buttons
+              below are affiliate links.
+            </p>
+            <p>
+              If you write and you sell something, start at #1 Kit. If the bill is
+              the constraint, skip to <a href="#brevo">Brevo</a>. If the newsletter
+              is the product, jump to <a href="#beehiiv">Beehiiv</a>.
+            </p>
+          </div>
+          <div class="hero-meta">
+            <span>Last updated October 2026</span>
+            <span>5 providers</span>
+            <a href="/methodology">How the scores work</a>
+          </div>
+        </div>
+        <aside class="winner">
+          <div class="label">#1 best email marketing for most people</div>
+          <div class="winner-head">
+            <img class="host-mark" src="/email/kit-mark.svg" alt="" width="48" height="48" />
+            <h2>{winner.name}</h2>
+          </div>
+          <p>
+            {winner.summary} Paid Creator is commonly around {winner.fromPrice}/mo
+            at 1,000 subscribers. Start free if you only need a newsletter plan.
+          </p>
+          <a class="btn btn-primary" data-affiliate={winner.slug} href={emailAffiliateUrl(winner)} rel="nofollow sponsored noopener" target="_blank">
+            Visit {winner.name}
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <nav class="jump-nav" aria-label="Jump to a pick">
+      <div class="wrap jump-row">
+        {
+          emailTools.map((tool) => (
+            <a href={`#${tool.slug}`}>
+              <img src={`/email/${tool.slug}-mark.svg`} alt="" width="48" height="48" />
+              <span>
+                #{tool.rank} {tool.name}
+                <small>{tool.badge}</small>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </nav>
+
+    <section class="section" id="ranking">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Best email marketing 2026: the ranking</h2>
+          <p>
+            Filter by how you send, then open a review for the full argument. Scores are
+            editorial, 1–10 — they match the badge, not a deliverability lab.
+          </p>
+        </div>
+        <FilterBar filters={emailFilters} label="Filter email tools by use case" />
+        <div class="rank-list">
+          {
+            emailTools.map((tool) => (
+              <RankCard
+                pick={tool}
+                visitUrl={emailAffiliateUrl(tool)}
+                markSrc={`/email/${tool.slug}-mark.svg`}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Best email tool by job, not by logo</h2>
+          <p>
+            “Best email marketing” is three products glued together: a creator list,
+            a cheap sender, and a publication CMS. Use the row that matches the job.
+          </p>
+        </div>
+        <div class="audience">
+          <article>
+            <h3>Best email for a new website</h3>
+            <p>
+              <a href="/reviews/kit">Kit</a> is the default after you buy hosting.
+              <a href="/reviews/mailchimp">Mailchimp</a> is fine if the name is the
+              feature. Full write-up:
+              <a href="/guides/kit-vs-mailchimp">Kit vs Mailchimp</a>.
+            </p>
+            <div class="job-cta">
+              <a class="btn btn-ghost" href="/reviews/kit">Kit review</a>
+              <a class="btn btn-primary" data-affiliate="mailchimp" href={emailAffiliateUrl(mailchimp)} rel="nofollow sponsored noopener" target="_blank">
+                Mailchimp if you already know it
+              </a>
+            </div>
+          </article>
+          <article>
+            <h3>Best cheap email / SMTP</h3>
+            <p>
+              You send a lot, or you need transactional mail for an app.
+              <a href="/reviews/brevo">Brevo</a> bills on volume, not list size.
+              Kit will punish a quiet 20,000-person list.
+            </p>
+            <div class="job-cta">
+              <a class="btn btn-ghost" href="/reviews/brevo">Brevo review</a>
+              <a class="btn btn-primary" data-affiliate="brevo" href={emailAffiliateUrl(brevo)} rel="nofollow sponsored noopener" target="_blank">
+                Visit Brevo
+              </a>
+            </div>
+          </article>
+          <article>
+            <h3>Best newsletter platform</h3>
+            <p>
+              The email is the show, not a side form. <a href="/reviews/beehiiv">Beehiiv</a>
+              is the publication stack (and it repriced in October 2026 — read the
+              review). Kit still wins if the list supports a course or a SaaS you
+              already sell.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split">
+        <div class="panel">
+          <h2>Email marketing prices (2026)</h2>
+          <p class="muted">
+            Public starting prices. List size, send volume, annual billing, and
+            Beehiiv’s October 2026 plan change all move the real cost.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Type</th>
+                  <th>From</th>
+                  <th>Best for</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  emailTools.map((tool) => (
+                    <tr>
+                      <td>
+                        <a href={`#${tool.slug}`}>{tool.name}</a>
+                      </td>
+                      <td>{tool.productType}</td>
+                      <td>{tool.fromPrice}/mo</td>
+                      <td>{tool.bestFor}</td>
+                      <td>{tool.score.toFixed(1)}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <aside class="panel pick-list">
+          <h2>Short answers</h2>
+          <p>Best for most people: <strong>Kit</strong></p>
+          <p>Best cheap / SMTP: <strong>Brevo</strong></p>
+          <p>Best known starter: <strong>Mailchimp</strong></p>
+          <p>Best for writers: <strong>Beehiiv</strong></p>
+          <p>Best automation suite: <strong>GetResponse</strong></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How we ranked email tools</h2>
+          <p>
+            Time to the first real send weighs more than a feature matrix. Price
+            honesty at 10,000 subscribers weighs more than the free-plan screenshot.
+            Whether you can leave with a CSV is the third filter. We did not buy
+            inbox-placement reports.
+          </p>
+        </div>
+        <div class="audience method-grid">
+          <article>
+            <h3>Time to first send</h3>
+            <p>Can someone who just launched a site add a form, confirm a subscriber, and mail them this week.</p>
+          </article>
+          <article>
+            <h3>Price honesty</h3>
+            <p>Is the advertised number close to the bill at a real list size, or is it a 500-contact teaser.</p>
+          </article>
+          <article>
+            <h3>List you can leave</h3>
+            <p>When the tool gets worse, can they export and keep the audience they paid to build.</p>
+          </article>
+        </div>
+        <p class="muted method-link">Same three-filter idea as hosting, on the <a href="/methodology">methodology page</a>.</p>
+      </div>
+    </section>
+
+    <section class="section" id="guides">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Email comparison guides</h2>
+          <p>
+            Longer pages for the searches this ranking cannot answer in one table.
+          </p>
+        </div>
+        <div class="guides">
+          <a class="guide-card" href="/guides/kit-vs-mailchimp">
+            <div class="kicker">Guide</div>
+            <h3>Kit vs Mailchimp: which to pick in 2026</h3>
+            <p class="muted">
+              Creator list vs the brand everyone knows. Pricing as the list grows, free plans, and who should skip both for Brevo.
+            </p>
+          </a>
+          <a class="guide-card" href="/">
+            <div class="kicker">Hosting</div>
+            <h3>Already picked hosting?</h3>
+            <p class="muted">
+              The email ranking assumes you have a site. If you do not, start with the 2026 web hosting ranking.
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Email marketing FAQ</h2>
+        </div>
+        <div class="faq">
+          {
+            faqs.map((faq, i) => (
+              <details open={i === 0}>
+                <summary>{faq.q}</summary>
+                <p>{faq.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>

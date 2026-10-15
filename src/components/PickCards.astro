@@ -1,5 +1,5 @@
 ---
-import { affiliateUrl, hostBySlug } from "../data/hosts";
+import { catalogBySlug } from "../data/catalog";
 
 export type GuidePick = {
   slug: string;
@@ -15,29 +15,29 @@ const { picks } = Astro.props;
   picks.length > 0 && (
     <div class="guide-picks">
       {picks.map((pick) => {
-        const host = hostBySlug(pick.slug);
-        if (!host) return null;
+        const item = catalogBySlug(pick.slug);
+        if (!item) return null;
         return (
           <aside>
             <div class="guide-pick-head">
-              <img class="host-mark" src={`/hosts/${host.slug}-mark.svg`} alt="" width="40" height="40" />
+              <img class="host-mark" src={item.markSrc} alt="" width="40" height="40" />
               <div>
                 <div class="label">{pick.ifYou}</div>
-                <h3>{host.name}</h3>
+                <h3>{item.pick.name}</h3>
               </div>
             </div>
             <p>{pick.note}</p>
             <a
               class="btn btn-primary"
-              data-affiliate={host.slug}
-              href={affiliateUrl(host)}
+              data-affiliate={item.pick.slug}
+              href={item.visitUrl}
               rel="nofollow sponsored noopener"
               target="_blank"
             >
-              Visit {host.name}
+              Visit {item.pick.name}
             </a>
-            <a class="btn btn-ghost" href={`/reviews/${host.slug}`}>
-              {host.name} review
+            <a class="btn btn-ghost" href={`/reviews/${item.pick.slug}`}>
+              {item.pick.name} review
             </a>
           </aside>
         );

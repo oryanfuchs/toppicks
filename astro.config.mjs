@@ -10,7 +10,12 @@ export default defineConfig({
       filter: (page) => !page.includes("/go/"),
       serialize(item) {
         const path = new URL(item.url).pathname;
-        item.priority = path === "/" ? 1.0 : path.startsWith("/reviews/") || path.startsWith("/guides/") ? 0.8 : 0.5;
+        item.priority =
+          path === "/" ? 1.0 : path === "/email/" || path === "/email"
+            ? 0.9
+            : path.startsWith("/reviews/") || path.startsWith("/guides/")
+              ? 0.8
+              : 0.5;
         return item;
       },
     }),

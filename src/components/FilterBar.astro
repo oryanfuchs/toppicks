@@ -1,16 +1,26 @@
 ---
-const filters = [
-  { id: "all", label: "All 5 hosts" },
-  { id: "beginner", label: "Beginners" },
-  { id: "wordpress", label: "WordPress" },
-  { id: "cheap", label: "Cheap" },
-  { id: "vps", label: "VPS" },
-  { id: "managed", label: "Managed" },
-  { id: "ecommerce", label: "Stores" },
-];
+type Filter = { id: string; label: string };
+
+type Props = {
+  filters?: Filter[];
+  label?: string;
+};
+
+const {
+  filters = [
+    { id: "all", label: "All 5 hosts" },
+    { id: "beginner", label: "Beginners" },
+    { id: "wordpress", label: "WordPress" },
+    { id: "cheap", label: "Cheap" },
+    { id: "vps", label: "VPS" },
+    { id: "managed", label: "Managed" },
+    { id: "ecommerce", label: "Stores" },
+  ],
+  label = "Filter hosts by use case",
+} = Astro.props;
 ---
 
-<div class="filter-bar" role="toolbar" aria-label="Filter hosts by use case">
+<div class="filter-bar" role="toolbar" aria-label={label}>
   {
     filters.map((filter, i) => (
       <button type="button" class="filter-chip" data-filter={filter.id} aria-pressed={i === 0 ? "true" : "false"}>
@@ -19,12 +29,12 @@ const filters = [
     ))
   }
 </div>
-<p class="filter-empty" id="filter-empty" hidden>Nothing in this ranking matches that filter.</p>
+<p class="filter-empty" hidden>Nothing in this ranking matches that filter.</p>
 
 <script>
   const chips = document.querySelectorAll<HTMLButtonElement>(".filter-chip");
   const cards = document.querySelectorAll<HTMLElement>(".rank-card");
-  const empty = document.getElementById("filter-empty");
+  const empty = document.querySelector<HTMLElement>(".filter-empty");
 
   chips.forEach((chip) => {
     chip.addEventListener("click", () => {

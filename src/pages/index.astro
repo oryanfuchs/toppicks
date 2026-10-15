@@ -148,7 +148,15 @@ const jsonLd = {
         </div>
         <FilterBar />
         <div class="rank-list">
-          {hosts.map((host) => <RankCard host={host} />)}
+          {
+            hosts.map((host) => (
+              <RankCard
+                pick={host}
+                visitUrl={affiliateUrl(host)}
+                markSrc={`/hosts/${host.slug}-mark.svg`}
+              />
+            ))
+          }
         </div>
       </div>
     </section>
@@ -258,6 +266,24 @@ const jsonLd = {
     <section class="section">
       <div class="wrap">
         <div class="section-head">
+          <h2>You have a site. Next: a list.</h2>
+          <p>
+            Hosting gets the page live. Email is how you talk to people without
+            renting an algorithm. Same five-pick shape, different job:
+            <a href="/email">best email marketing 2026</a> — Kit for creators,
+            Brevo if the invoice is the constraint.
+          </p>
+        </div>
+        <div class="job-cta">
+          <a class="btn btn-ghost" href="/email">Email ranking</a>
+          <a class="btn btn-primary" href="/reviews/kit">Kit review</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
           <h2>How we ranked the best web hosts</h2>
           <p>
             Ease of getting a site live this week weighs more than raw CPU. Renewal honesty
@@ -295,7 +321,7 @@ const jsonLd = {
         </div>
         <div class="guides">
           {
-            guides.map((guide) => (
+            guides.filter((guide) => guide.vertical !== "email").map((guide) => (
               <a class="guide-card" href={`/guides/${guide.slug}`}>
                 <div class="kicker">Guide</div>
                 <h3>{guide.title}</h3>

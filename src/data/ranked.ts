@@ -1,0 +1,23 @@
+export type RankedPick = {
+  slug: string;
+  name: string;
+  rank: number;
+  badge: string;
+  tagline: string;
+  fromPrice: string;
+  priceNote: string;
+  bestFor: string;
+  score: number;
+  categories: string[];
+  accent: string;
+  productType: string;
+  specs: { label: string; value: string }[];
+  buyIf: string;
+  skipIf: string;
+  ratings: { label: string; value: number }[];
+  pros: string[];
+  cons: string[];
+  summary: string;
+  body: string[];
+  faqs: { q: string; a: string }[];
+};

@@ -9,6 +9,9 @@ export type Guide = {
   title: string;
   description: string;
   updated: string;
+  vertical?: "hosting" | "email";
+  rankingHref?: string;
+  rankingLabel?: string;
   paragraphs: string[];
   faqs: { q: string; a: string }[];
   picks?: GuidePick[];
@@ -255,6 +258,56 @@ export const guides: Guide[] = [
         slug: "cloudways",
         ifYou: "If the site already makes money",
         note: "Managed cloud when shared hosting is the liability. Staging and backups without living in SSH.",
+      },
+    ],
+  },
+  {
+    slug: "kit-vs-mailchimp",
+    title: "Kit vs Mailchimp: which to pick in 2026",
+    description:
+      "Kit vs Mailchimp for email marketing in 2026: creator lists vs the familiar suite, free plans, pricing as subscribers grow, and when Brevo is the cheaper third option.",
+    updated: "2026-10-15",
+    vertical: "email",
+    rankingHref: "/email",
+    rankingLabel: "Best email marketing 2026",
+    paragraphs: [
+      "Kit vs Mailchimp is the comparison most people actually need after they buy hosting. Both will collect an address and send a campaign. They are not the same product. Kit (formerly ConvertKit) is email for writers and product people. Mailchimp is the marketing suite whose logo everyone already recognizes.",
+      "Mailchimp usually wins the first five minutes. Templates, a WordPress plugin, a free plan, a name you can say on a call without spelling it. Essentials is widely listed around $13/mo at a few hundred contacts. If the job is a shop newsletter and a colleague who already has a login, that is enough.",
+      "Kit wins the next twelve months for a creator. Tags, sequences, a paid newsletter, a form that does not feel like a 2014 coupon blast. Paid Creator is commonly around $39/mo at about 1,000 subscribers. There is a free newsletter plan with limits. You are paying for a tool that assumes you write and you sell, not for a retail calendar.",
+      "Pricing is where both get honest. They charge by list size. A quiet 10,000-person list is an expensive hobby on either one. That is the moment Brevo belongs in the conversation: it bills on emails sent, not on how many addresses sit in the drawer. If your “email marketing” is a weekly digest to a large list, stop comparing Kit and Mailchimp and open the Brevo review.",
+      "Free plans: both have one. Mailchimp’s is tightly capped on contacts and sends. Kit’s newsletter plan lets you publish before you pay for Creator automation. Neither free tier is a forever home at a serious list. Treat them as on-ramps.",
+      "You can export from both. Do it before you build five years of automations you do not understand. The lock-in is habit, not a blocked CSV. Switching later is boring and cheaper than staying in the wrong suite because the first form already works.",
+      "Short take: pick Mailchimp if familiarity is the feature — a client expects it, a theme integrates it, a shop calendar is the job. Pick Kit if you are the writer and the list supports a product. Pick neither if send volume is the invoice; that is Brevo. If the newsletter is the entire business, read Beehiiv before you standardize.",
+    ],
+    faqs: [
+      {
+        q: "Who wins Kit vs Mailchimp for a new website?",
+        a: "Kit, if the site is yours and you will write to the list. Mailchimp if someone else has to operate it and they already know Mailchimp.",
+      },
+      {
+        q: "Which is cheaper, Kit or Mailchimp?",
+        a: "On a tiny list, Mailchimp’s Essentials screenshot is often lower. At a few thousand engaged subscribers, both hurt. Compare the contact tier you will actually have, then look at Brevo if you send a lot.",
+      },
+      {
+        q: "Should I start on Mailchimp and move to Kit later?",
+        a: "You can. Exporting is ordinary. Starting on Kit is less work if you already know you are a creator, not a shop broadcast.",
+      },
+    ],
+    picks: [
+      {
+        slug: "mailchimp",
+        ifYou: "If the name is the feature",
+        note: "Templates, plugins, and a login your colleague already has. Fine for a shop calendar. Easy to outgrow as a publication.",
+      },
+      {
+        slug: "kit",
+        ifYou: "If you write and you sell",
+        note: "The default on the email ranking. Paid Creator climbs with the list. Start on the free newsletter plan if you are not sure yet.",
+      },
+      {
+        slug: "brevo",
+        ifYou: "If the invoice is the constraint",
+        note: "Volume pricing and SMTP. Not a creator home. The right third option when Kit vs Mailchimp is the wrong question.",
       },
     ],
   },
