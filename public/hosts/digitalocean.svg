@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="DigitalOcean">
+  <rect width="720" height="280" fill="#04243d"/>
+  <rect width="720" height="280" fill="#0080FF"/>
+  <circle cx="620" cy="200" r="120" fill="#0066cc"/>
+  <circle cx="560" cy="60" r="40" fill="#fff" opacity="0.15"/>
+  <rect x="48" y="48" width="72" height="72" rx="16" fill="#fff"/>
+  <circle cx="84" cy="84" r="16" fill="#0080FF"/>
+  <rect x="78" y="98" width="12" height="12" fill="#0080FF"/>
+  <text x="48" y="168" fill="#fff" font-family="Georgia, serif" font-size="38" font-weight="600">DigitalOcean</text>
+  <text x="48" y="204" fill="#D6ECFF" font-family="system-ui, sans-serif" font-size="16" letter-spacing="2">BEST DOCUMENTATION</text>
+</svg>

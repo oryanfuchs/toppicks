@@ -1,0 +1,127 @@
+---
+import "../styles/global.css";
+import Logo from "../components/Logo.astro";
+import SiteAnalytics from "../components/SiteAnalytics.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  path?: string;
+};
+
+const { title, description, path = "/" } = Astro.props;
+const canonical = new URL(path, Astro.site).toString();
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "Top Picks",
+      url: "https://gettoppicks.com/",
+      description: "Independent web hosting rankings and comparisons for 2026.",
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "Organization",
+      name: "Top Picks",
+      url: "https://gettoppicks.com/",
+      description: "Editorial hosting comparison site at gettoppicks.com.",
+      founder: {
+        "@type": "Person",
+        name: "Oryan Fuchs",
+        jobTitle: "Software engineer",
+        url: "https://gettoppicks.com/about",
+      },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Top Picks" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+    <meta name="impact-site-verification" content="d68a9f1a-3bbe-4e56-9be7-82333a5fb96c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="disclosure">
+      <div class="wrap">
+        Independent rankings. Some links are affiliate links — if you buy after clicking, we may earn a commission.
+        <a href="/disclosure">How that works</a>
+      </div>
+    </div>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <Logo />
+        <nav>
+          <a href="/#ranking">Ranking</a>
+          <a href="/guides/hostinger-vs-namecheap">Compare</a>
+          <a href="/methodology">Methodology</a>
+          <a href="/about">About</a>
+        </nav>
+      </div>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <Logo />
+          <p>
+            Editorial hosting rankings for people who want a clear pick, not a 40-page roundup.
+            Updated for 2026. Built independently at gettoppicks.com.
+          </p>
+        </div>
+        <div>
+          <h3>Ranking</h3>
+          <a href="/#ranking">Best web hosting 2026</a>
+          <a href="/reviews/hostinger">Hostinger review</a>
+          <a href="/reviews/hetzner">Hetzner review</a>
+          <a href="/reviews/cloudways">Cloudways review</a>
+          <a href="/reviews/digitalocean">DigitalOcean review</a>
+          <a href="/reviews/namecheap">Namecheap review</a>
+        </div>
+        <div>
+          <h3>Guides</h3>
+          <a href="/guides/hostinger-vs-namecheap">Hostinger vs Namecheap</a>
+          <a href="/guides/hetzner-vs-digitalocean">Hetzner vs DigitalOcean</a>
+          <a href="/guides/best-cheap-wordpress-hosting">Cheap WordPress hosting</a>
+          <a href="/guides/hostinger-vs-cloudways">Hostinger vs Cloudways</a>
+          <a href="/guides/shared-vs-vps">Shared vs VPS</a>
+          <a href="/guides/hosting-for-side-project">Side project hosting</a>
+        </div>
+        <div>
+          <h3>This site</h3>
+          <a href="/methodology">How we rank</a>
+          <a href="/disclosure">Affiliate disclosure</a>
+          <a href="/about">About Top Picks</a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© {new Date().getFullYear()} Top Picks. All prices checked from public pages; always confirm on the provider site.</span>
+      </div>
+    </footer>
+    <SiteAnalytics />
+  </body>
+</html>

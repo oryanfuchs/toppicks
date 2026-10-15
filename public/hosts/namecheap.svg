@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Namecheap">
+  <rect width="720" height="280" fill="#2a120c"/>
+  <rect width="720" height="280" fill="#FF7A59"/>
+  <polygon points="720,0 720,280 480,280" fill="#e85d3c"/>
+  <rect x="48" y="48" width="72" height="72" rx="12" fill="#fff"/>
+  <text x="62" y="98" fill="#FF7A59" font-family="Georgia, serif" font-size="40" font-weight="700">N</text>
+  <text x="48" y="168" fill="#1a0c08" font-family="Georgia, serif" font-size="42" font-weight="600">Namecheap</text>
+  <text x="48" y="204" fill="#4a2018" font-family="system-ui, sans-serif" font-size="16" letter-spacing="2">CHEAPEST START + DOMAIN</text>
+</svg>

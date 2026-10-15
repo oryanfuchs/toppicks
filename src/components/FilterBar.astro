@@ -1,0 +1,43 @@
+---
+const filters = [
+  { id: "all", label: "All 5 hosts" },
+  { id: "beginner", label: "Beginners" },
+  { id: "wordpress", label: "WordPress" },
+  { id: "cheap", label: "Cheap" },
+  { id: "vps", label: "VPS" },
+  { id: "managed", label: "Managed" },
+  { id: "ecommerce", label: "Stores" },
+];
+---
+
+<div class="filter-bar" role="toolbar" aria-label="Filter hosts by use case">
+  {
+    filters.map((filter, i) => (
+      <button type="button" class="filter-chip" data-filter={filter.id} aria-pressed={i === 0 ? "true" : "false"}>
+        {filter.label}
+      </button>
+    ))
+  }
+</div>
+<p class="filter-empty" id="filter-empty" hidden>Nothing in this ranking matches that filter.</p>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>(".filter-chip");
+  const cards = document.querySelectorAll<HTMLElement>(".rank-card");
+  const empty = document.getElementById("filter-empty");
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const id = chip.dataset.filter ?? "all";
+      chips.forEach((item) => item.setAttribute("aria-pressed", String(item === chip)));
+      let shown = 0;
+      cards.forEach((card) => {
+        const cats = (card.dataset.cats ?? "").split(" ").filter(Boolean);
+        const match = id === "all" || cats.includes(id);
+        card.hidden = !match;
+        if (match) shown += 1;
+      });
+      if (empty) empty.hidden = shown > 0;
+    });
+  });
+</script>

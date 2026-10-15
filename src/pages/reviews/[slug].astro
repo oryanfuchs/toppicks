@@ -1,0 +1,171 @@
+---
+import Base from "../../layouts/Base.astro";
+import { affiliateUrl, hosts, hostBySlug } from "../../data/hosts";
+import { guides } from "../../data/guides";
+
+export function getStaticPaths() {
+  return hosts.map((host) => ({ params: { slug: host.slug } }));
+}
+
+const { slug } = Astro.params;
+const host = hostBySlug(slug!);
+if (!host) {
+  throw new Error(`Missing host ${slug}`);
+}
+
+const title = `${host.name} Review 2026: Pricing, Pros, Cons & Who It’s For | Top Picks`;
+const description = `${host.name} ranked #${host.rank} in our 2026 web hosting ranking (${host.score.toFixed(1)}/10). From ${host.fromPrice}/mo. Best for ${host.bestFor}. ${host.summary}`;
+const others = hosts.filter((item) => item.slug !== host.slug);
+const relatedGuides = guides.filter((guide) =>
+  `${guide.title} ${guide.description} ${guide.paragraphs.join(" ")}`.toLowerCase().includes(host.name.toLowerCase())
+).slice(0, 3);
+
+const reviewUrl = new URL(`/reviews/${host.slug}`, Astro.site).toString();
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://gettoppicks.com/" },
+        { "@type": "ListItem", position: 2, name: `${host.name} review`, item: reviewUrl },
+      ],
+    },
+    {
+      "@type": "Review",
+      name: `${host.name} review 2026`,
+      url: reviewUrl,
+      dateModified: "2026-10-15",
+      author: { "@type": "Organization", name: "Top Picks", url: "https://gettoppicks.com/" },
+      itemReviewed: {
+        "@type": "Product",
+        name: `${host.name} web hosting`,
+        description: host.summary,
+        brand: { "@type": "Brand", name: host.name },
+        offers: {
+          "@type": "Offer",
+          price: host.fromPrice.replace(/[^0-9.]/g, ""),
+          priceCurrency: host.fromPrice.includes("€") ? "EUR" : "USD",
+          url: reviewUrl,
+        },
+      },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: host.score,
+        bestRating: 10,
+        worstRating: 1,
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: host.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ],
+};
+---
+
+<Base title={title} description={description} path={`/reviews/${host.slug}`}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main class="wrap prose review-hero">
+    <article>
+      <p class="crumbs">
+        <a href="/">Best web hosting 2026</a>
+        <span aria-hidden="true"> / </span>
+        <span>{host.name} review</span>
+      </p>
+      <div class="review-head">
+        <img class="host-mark" src={`/hosts/${host.slug}-mark.svg`} alt="" width="56" height="56" />
+        <div>
+          <div class="kicker">Rank {host.rank} · Score {host.score.toFixed(1)}/10 · Updated October 2026</div>
+          <h1>{host.name} review 2026</h1>
+        </div>
+      </div>
+      <p class="lede">{host.summary}</p>
+      <p>
+        <span class="price">From {host.fromPrice}/mo</span>
+        <span class="muted"> · {host.priceNote}</span>
+      </p>
+      <p><strong>Best for:</strong> {host.bestFor}</p>
+      <dl class="spec-grid">
+        {host.specs.map((spec) => (
+          <div>
+            <dt>{spec.label}</dt>
+            <dd>{spec.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="verdict">
+        <p><strong>Buy if</strong> {host.buyIf}</p>
+        <p><strong>Skip if</strong> {host.skipIf}</p>
+      </div>
+      {host.body.map((p) => <p>{p}</p>)}
+      <h2>Pros</h2>
+      <ul>
+        {host.pros.map((item) => <li>{item}</li>)}
+      </ul>
+      <h2>Cons</h2>
+      <ul>
+        {host.cons.map((item) => <li>{item}</li>)}
+      </ul>
+      <h2>{host.name} FAQ</h2>
+      <div class="faq">
+        {
+          host.faqs.map((faq) => (
+            <details>
+              <summary>{faq.q}</summary>
+              <p>{faq.a}</p>
+            </details>
+          ))
+        }
+      </div>
+      <h2>Compare with other hosts</h2>
+      <ul class="related">
+        {others.map((item) => (
+          <li>
+            <a href={`/reviews/${item.slug}`}>{item.name} review 2026</a>
+            <span class="muted"> — {item.badge}, from {item.fromPrice}/mo</span>
+          </li>
+        ))}
+      </ul>
+      {relatedGuides.length > 0 && (
+        <>
+          <h2>Related guides</h2>
+          <ul class="related">
+            {relatedGuides.map((guide) => (
+              <li>
+                <a href={`/guides/${guide.slug}`}>{guide.title}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      <p><a href="/#ranking">Back to the 2026 web hosting ranking</a></p>
+    </article>
+    <aside class="review-cta">
+      <div class="label badge">{host.badge}</div>
+      <h2>{host.name}</h2>
+      <div class="score"><strong>{host.score.toFixed(1)}</strong>/10</div>
+      <div class="meters">
+        {host.ratings.map((rating) => (
+          <div class="meter">
+            <span>{rating.label}</span>
+            <div class="meter-bar" aria-label={`${rating.label} ${rating.value} of 5`}>
+              <i style={`width: ${rating.value * 20}%`}></i>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p>
+        Advertised from {host.fromPrice}/mo. Confirm the term length and renewal
+        on the provider site before you pay.
+      </p>
+      <a class="btn btn-primary" data-affiliate={host.slug} href={affiliateUrl(host)} rel="nofollow sponsored noopener" target="_blank">
+        Go to {host.name}
+      </a>
+    </aside>
+  </main>
+</Base>

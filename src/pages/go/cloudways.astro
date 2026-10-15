@@ -1,0 +1,18 @@
+---
+const dest = "https://platform.cloudways.com/signup";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0;url=${dest}`} />
+    <title>Continue to Cloudways</title>
+    <script is:inline define:vars={{ dest }}>
+      location.replace(dest);
+    </script>
+  </head>
+  <body>
+    <p><a href={dest}>Continue to Cloudways</a></p>
+  </body>
+</html>

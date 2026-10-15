@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Hostinger">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4B22C0"/>
+      <stop offset="1" stop-color="#8B5CFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="280" fill="#12081f"/>
+  <rect width="720" height="280" fill="url(#g)" opacity="0.92"/>
+  <circle cx="560" cy="-20" r="180" fill="#fff" opacity="0.06"/>
+  <circle cx="640" cy="220" r="90" fill="#000" opacity="0.18"/>
+  <rect x="48" y="48" width="72" height="72" rx="16" fill="#fff"/>
+  <path d="M66 84h36M66 96h24" stroke="#673DE6" stroke-width="8" stroke-linecap="round"/>
+  <text x="48" y="168" fill="#fff" font-family="Georgia, serif" font-size="42" font-weight="600">Hostinger</text>
+  <text x="48" y="204" fill="#E4D7FF" font-family="system-ui, sans-serif" font-size="16" letter-spacing="2">BEST FOR MOST PEOPLE</text>
+</svg>

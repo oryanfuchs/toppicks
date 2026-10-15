@@ -1,0 +1,78 @@
+---
+import type { Host } from "../data/hosts";
+import { affiliateUrl } from "../data/hosts";
+
+type Props = { host: Host };
+const { host } = Astro.props;
+---
+
+<article
+  class:list={["rank-card", { top: host.rank === 1 }]}
+  id={host.slug}
+  data-cats={host.categories.join(" ")}
+>
+  <div class="card-accent" style={`background: ${host.accent}`}></div>
+  <div class="card-body">
+    <div class="card-main">
+      <div class="card-head">
+        <div class="rank-num">{host.rank}</div>
+        <img class="host-mark" src={`/hosts/${host.slug}-mark.svg`} alt="" width="48" height="48" />
+        <div>
+          <div class="badge">{host.badge}</div>
+          <h2 class="host-name">{host.name}</h2>
+        </div>
+      </div>
+      <p class="tagline">{host.tagline}</p>
+      <p class="summary">{host.summary}</p>
+      <dl class="spec-grid">
+        {host.specs.map((spec) => (
+          <div>
+            <dt>{spec.label}</dt>
+            <dd>{spec.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="proscons">
+        <div>
+          <h3>Why it ranks</h3>
+          <ul>
+            {host.pros.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3>Watch out</h3>
+          <ul>
+            {host.cons.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="verdict">
+        <p><strong>Buy if</strong> {host.buyIf}</p>
+        <p><strong>Skip if</strong> {host.skipIf}</p>
+      </div>
+    </div>
+    <aside class="cta-col">
+      <div class="score-block">
+        <div class="score"><strong>{host.score.toFixed(1)}</strong>/10</div>
+        <div class="meters">
+          {host.ratings.map((rating) => (
+            <div class="meter">
+              <span>{rating.label}</span>
+              <div class="meter-bar" aria-label={`${rating.label} ${rating.value} of 5`}>
+                <i style={`width: ${rating.value * 20}%`}></i>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p class="price-block">
+        <span class="price">From {host.fromPrice}/mo</span>
+        <span class="muted">{host.priceNote}</span>
+      </p>
+      <a class="btn btn-primary" data-affiliate={host.slug} href={affiliateUrl(host)} rel="nofollow sponsored noopener" target="_blank">
+        Visit {host.name}
+      </a>
+      <a class="btn btn-ghost" href={`/reviews/${host.slug}`}>{host.name} review</a>
+    </aside>
+  </div>
+</article>

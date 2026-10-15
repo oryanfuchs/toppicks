@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Hetzner">
+  <rect width="720" height="280" fill="#1a0709"/>
+  <rect width="720" height="280" fill="#D50C2D"/>
+  <rect x="420" y="0" width="300" height="280" fill="#9b091f"/>
+  <rect x="48" y="48" width="72" height="72" rx="8" fill="#fff"/>
+  <text x="62" y="98" fill="#D50C2D" font-family="Georgia, serif" font-size="42" font-weight="700">H</text>
+  <text x="48" y="168" fill="#fff" font-family="Georgia, serif" font-size="42" font-weight="600">Hetzner</text>
+  <text x="48" y="204" fill="#FFD0D6" font-family="system-ui, sans-serif" font-size="16" letter-spacing="2">BEST VPS PER EURO</text>
+</svg>

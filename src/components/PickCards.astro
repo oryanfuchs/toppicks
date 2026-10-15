@@ -1,0 +1,47 @@
+---
+import { affiliateUrl, hostBySlug } from "../data/hosts";
+
+export type GuidePick = {
+  slug: string;
+  ifYou: string;
+  note: string;
+};
+
+type Props = { picks: GuidePick[] };
+const { picks } = Astro.props;
+---
+
+{
+  picks.length > 0 && (
+    <div class="guide-picks">
+      {picks.map((pick) => {
+        const host = hostBySlug(pick.slug);
+        if (!host) return null;
+        return (
+          <aside>
+            <div class="guide-pick-head">
+              <img class="host-mark" src={`/hosts/${host.slug}-mark.svg`} alt="" width="40" height="40" />
+              <div>
+                <div class="label">{pick.ifYou}</div>
+                <h3>{host.name}</h3>
+              </div>
+            </div>
+            <p>{pick.note}</p>
+            <a
+              class="btn btn-primary"
+              data-affiliate={host.slug}
+              href={affiliateUrl(host)}
+              rel="nofollow sponsored noopener"
+              target="_blank"
+            >
+              Visit {host.name}
+            </a>
+            <a class="btn btn-ghost" href={`/reviews/${host.slug}`}>
+              {host.name} review
+            </a>
+          </aside>
+        );
+      })}
+    </div>
+  )
+}

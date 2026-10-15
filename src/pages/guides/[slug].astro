@@ -1,0 +1,92 @@
+---
+import Base from "../../layouts/Base.astro";
+import PickCards from "../../components/PickCards.astro";
+import { guides } from "../../data/guides";
+
+export function getStaticPaths() {
+  return guides.map((guide) => ({ params: { slug: guide.slug } }));
+}
+
+const guide = guides.find((item) => item.slug === Astro.params.slug);
+if (!guide) {
+  throw new Error("Missing guide");
+}
+
+const others = guides.filter((item) => item.slug !== guide.slug).slice(0, 4);
+const pageUrl = new URL(`/guides/${guide.slug}`, Astro.site).toString();
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://gettoppicks.com/" },
+        { "@type": "ListItem", position: 2, name: guide.title, item: pageUrl },
+      ],
+    },
+    {
+      "@type": "Article",
+      headline: guide.title,
+      description: guide.description,
+      dateModified: guide.updated,
+      datePublished: guide.updated,
+      author: { "@type": "Organization", name: "Top Picks", url: "https://gettoppicks.com/" },
+      publisher: { "@type": "Organization", name: "Top Picks", url: "https://gettoppicks.com/" },
+      mainEntityOfPage: pageUrl,
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: guide.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ],
+};
+---
+
+<Base title={`${guide.title} | Top Picks`} description={guide.description} path={`/guides/${guide.slug}`}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <main class="wrap prose">
+    <p class="crumbs">
+      <a href="/">Best web hosting 2026</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/#guides">Guides</a>
+      <span aria-hidden="true"> / </span>
+      <span>{guide.title}</span>
+    </p>
+    <div class="kicker">Guide · Updated {guide.updated}</div>
+    <h1>{guide.title}</h1>
+    <p class="lede">{guide.description}</p>
+    {guide.paragraphs.map((p) => <p>{p}</p>)}
+    {guide.picks && guide.picks.length > 0 && (
+      <>
+        <h2>Who should buy what</h2>
+        <PickCards picks={guide.picks} />
+      </>
+    )}
+    <h2>FAQ</h2>
+    <div class="faq">
+      {
+        guide.faqs.map((faq) => (
+          <details>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))
+      }
+    </div>
+    <h2>More hosting comparisons</h2>
+    <ul class="related">
+      {others.map((item) => (
+        <li>
+          <a href={`/guides/${item.slug}`}>{item.title}</a>
+        </li>
+      ))}
+      <li>
+        <a href="/#ranking">Best web hosting 2026 ranking</a>
+      </li>
+    </ul>
+  </main>
+</Base>

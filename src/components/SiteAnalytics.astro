@@ -1,0 +1,41 @@
+---
+import Analytics from "@vercel/analytics/astro";
+
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+<Analytics />
+{
+  gaId && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+      <script is:inline define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag("js", new Date());
+        window.gtag("config", gaId);
+      </script>
+    </>
+  )
+}
+<script is:inline>
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const link = target.closest("a[rel~='sponsored']");
+    if (!link) return;
+    const host = (link.getAttribute("data-affiliate") || "unknown").replace(/[^\w]+/g, "_");
+    const page = location.pathname;
+    const button = (link.textContent || "").trim();
+    const link_url = link.href;
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "affiliate_click", { host, page, button, link_url });
+      window.gtag("event", "click_" + host, { page, button });
+    }
+    if (typeof window.va === "function") {
+      window.va("event", "affiliate_click", { host, page, button });
+    }
+  });
+</script>
