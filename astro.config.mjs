@@ -11,7 +11,9 @@ export default defineConfig({
       serialize(item) {
         const path = new URL(item.url).pathname;
         item.priority =
-          path === "/" ? 1.0 : path === "/email/" || path === "/email"
+          path === "/"
+            ? 1.0
+            : path === "/email/" || path === "/email" || path === "/hosting/" || path === "/hosting"
             ? 0.9
             : path.startsWith("/reviews/") || path.startsWith("/guides/")
               ? 0.8

@@ -1,45 +1,30 @@
 ---
 import Base from "../layouts/Base.astro";
-import RankCard from "../components/RankCard.astro";
-import FilterBar from "../components/FilterBar.astro";
-import { affiliateUrl, hostBySlug, hosts } from "../data/hosts";
-import { guides } from "../data/guides";
+import { hosts } from "../data/hosts";
+import { emailTools } from "../data/email";
 
-const title = "Best web hosting 2026: five providers, ranked | Top Picks";
+const title = "Top Picks: independent rankings for 2026";
 const description =
-  "Best web hosting in 2026, ranked: Hostinger for cheap WordPress, Hetzner for VPS, Cloudways for managed cloud, DigitalOcean, and Namecheap. Intro prices, renewals, and who each host is for.";
-const winner = hosts[0];
-const namecheap = hostBySlug("namecheap")!;
-const cloudways = hostBySlug("cloudways")!;
+  "Editorial rankings of web hosting and email marketing. Five products each, scored for the job — not a 40-logo roundup.";
 
-const faqs = [
+const verticals = [
   {
-    q: "What is the best web hosting in 2026?",
-    a: "For most people launching a first site or WordPress shop, Hostinger. For a VPS you will SSH into, Hetzner. For a business site you do not want to babysit, Cloudways. There is no single winner for every workload.",
+    href: "/hosting",
+    kicker: "Web hosting",
+    title: "Best web hosting 2026",
+    lede: "Cheap WordPress, European VPS, and managed cloud. Specs, renewals, and who should skip each row.",
+    winner: hosts[0],
+    markSrc: `/hosts/${hosts[0].slug}-mark.svg`,
+    items: hosts,
   },
   {
-    q: "What is the best cheap web hosting right now?",
-    a: "Namecheap usually wins the screenshot price. Hostinger is typically the cheaper way to run a real WordPress site for a year. Hetzner is cheaper than DigitalOcean once you need RAM, not a control panel.",
-  },
-  {
-    q: "What is the best cheap WordPress hosting?",
-    a: "Hostinger is #1 on this list for cheap WordPress hosting. Namecheap is fine for a tiny brochure. Cloudways is not cheap — it is the upgrade when shared hosting gets fragile.",
-  },
-  {
-    q: "Should I pick Hostinger or Hetzner?",
-    a: "If you do not want to use SSH, Hostinger. If you already do, Hetzner. They are not substitutes. One is shared hosting with a panel; the other is a cloud VM you operate.",
-  },
-  {
-    q: "Is shared hosting enough for WordPress?",
-    a: "For a brochure site, a blog, or a small shop with light traffic, yes. Once you need staging, object caching, or you are afraid of noisy neighbors, move to Cloudways or a VPS.",
-  },
-  {
-    q: "Hetzner vs DigitalOcean: which VPS is cheaper?",
-    a: "Hetzner is usually cheaper at the same RAM, especially on traffic. DigitalOcean wins on docs, managed databases, and extra regions. Read the full Hetzner vs DigitalOcean guide.",
-  },
-  {
-    q: "Do you get paid if I click these links?",
-    a: "Some of them, yes. A commission does not change what you pay. It does mean we have an incentive for clicks. Order is not set by commission alone; the disclosure page explains the conflict.",
+    href: "/email",
+    kicker: "Email marketing",
+    title: "Best email marketing 2026",
+    lede: "A list after the site: creator tools, cheap volume, newsletters, and automation. Price honesty at 10,000 subscribers.",
+    winner: emailTools[0],
+    markSrc: `/email/${emailTools[0].slug}-mark.svg`,
+    items: emailTools,
   },
 ];
 
@@ -48,24 +33,15 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "ItemList",
-      name: "Best web hosting 2026",
-      description:
-        "Editorial ranking of five web hosts for beginners, WordPress, and VPS buyers.",
+      name: "Top Picks rankings 2026",
+      description: "Editorial comparison rankings on gettoppicks.com.",
       url: "https://gettoppicks.com/",
-      numberOfItems: hosts.length,
-      itemListElement: hosts.map((host) => ({
+      numberOfItems: verticals.length,
+      itemListElement: verticals.map((vertical, i) => ({
         "@type": "ListItem",
-        position: host.rank,
-        name: host.name,
-        url: new URL(`/reviews/${host.slug}`, Astro.site).toString(),
-      })),
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.q,
-        acceptedAnswer: { "@type": "Answer", text: faq.a },
+        position: i + 1,
+        name: vertical.title,
+        url: new URL(vertical.href, Astro.site).toString(),
       })),
     },
   ],
@@ -76,275 +52,65 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <main>
     <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="kicker">Editorial ranking · October 2026</div>
-          <h1>Best web hosting in 2026, ranked</h1>
-          <div class="hero-copy">
-            <p class="lede">
-              Five hosts, scored for the job they actually do: cheap WordPress,
-              European VPS, and managed cloud. Specs, renewals, and who should skip each row.
-            </p>
-            <p>
-              Most roundups dump twenty logos on a page. This one is shorter on purpose.
-              We scored public pricing, how painful the first hour is, and what the bill
-              looks like after the intro period. We did not run a lab. Some buttons below
-              are affiliate links.
-            </p>
-            <p>
-              If you want a site live this week and you do not want to manage Linux,
-              start at #1 Hostinger. If you already live in SSH, skip to
-              <a href="#hetzner">Hetzner</a>. If shared hosting already feels fragile,
-              jump to <a href="#cloudways">Cloudways</a>.
-            </p>
-          </div>
-          <div class="hero-meta">
-            <span>Last updated October 2026</span>
-            <span>5 providers</span>
-            <a href="/methodology">How the scores work</a>
-          </div>
+      <div class="wrap home-hero">
+        <div class="kicker">Editorial rankings · October 2026</div>
+        <h1>Two jobs. Five picks each.</h1>
+        <p class="lede">
+          Independent rankings for people who want a clear buy, not a 40-page roundup.
+          Web hosting if you need a site live. Email if you already have one and need a list.
+        </p>
+        <div class="hero-meta">
+          <span>Last updated October 2026</span>
+          <span>2 verticals</span>
+          <a href="/methodology">How the scores work</a>
         </div>
-        <aside class="winner">
-          <div class="label">#1 best web hosting for most people</div>
-          <div class="winner-head">
-            <img class="host-mark" src={`/hosts/${winner.slug}-mark.svg`} alt="" width="48" height="48" />
-            <h2>{winner.name}</h2>
-          </div>
-          <p>
-            {winner.summary} Advertised from {winner.fromPrice}/mo on a long-term plan.
-            Read the renewal before you commit.
-          </p>
-          <a class="btn btn-primary" data-affiliate={winner.slug} href={affiliateUrl(winner)} rel="nofollow sponsored noopener" target="_blank">
-            Visit {winner.name}
-          </a>
-        </aside>
       </div>
     </section>
 
-    <nav class="jump-nav" aria-label="Jump to a pick">
-      <div class="wrap jump-row">
-        {
-          hosts.map((host) => (
-            <a href={`#${host.slug}`}>
-              <img src={`/hosts/${host.slug}-mark.svg`} alt="" width="48" height="48" />
-              <span>
-                #{host.rank} {host.name}
-                <small>{host.badge}</small>
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </nav>
-
-    <section class="section" id="ranking">
+    <section class="section" id="rankings">
       <div class="wrap">
         <div class="section-head">
-          <h2>Best web hosting 2026: the ranking</h2>
+          <h2>Choose a ranking</h2>
           <p>
-            Filter by how you work, then open a review for the full argument. Scores are
-            editorial, 1–10 — they match the badge, not a synthetic speed lab.
+            Each list is five products, a written argument, and a skip-if line.
+            Order is editorial. Some buttons are affiliate links.
           </p>
         </div>
-        <FilterBar />
-        <div class="rank-list">
+        <div class="vertical-grid">
           {
-            hosts.map((host) => (
-              <RankCard
-                pick={host}
-                visitUrl={affiliateUrl(host)}
-                markSrc={`/hosts/${host.slug}-mark.svg`}
-              />
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Best hosting by job, not by logo</h2>
-          <p>
-            “Best web hosting” is three markets glued together. A $3 WordPress plan and
-            a €5 cloud server solve different problems. Use the row that matches how you work.
-          </p>
-        </div>
-        <div class="audience">
-          <article>
-            <h3>Best cheap WordPress hosting</h3>
-            <p>
-              <a href="/reviews/hostinger">Hostinger</a> is the default for a first site
-              or small shop. <a href="/reviews/namecheap">Namecheap</a> is cheaper on day
-              one if you only need a brochure page and a domain. Full write-up:
-              <a href="/guides/best-cheap-wordpress-hosting">best cheap WordPress hosting</a>.
-            </p>
-            <div class="job-cta">
-              <a class="btn btn-ghost" href="/reviews/hostinger">Hostinger review</a>
-              <a class="btn btn-primary" data-affiliate="namecheap" href={affiliateUrl(namecheap)} rel="nofollow sponsored noopener" target="_blank">
-                Namecheap for a domain
-              </a>
-            </div>
-          </article>
-          <article>
-            <h3>Best cheap VPS (especially Europe)</h3>
-            <p>
-              You can install Nginx or Docker. <a href="/reviews/hetzner">Hetzner</a>
-              usually gives more RAM and traffic per euro than
-              <a href="/reviews/digitalocean">DigitalOcean</a>. Take DigitalOcean when you
-              want managed databases and docs you can paste from.
-              <a href="/guides/hetzner-vs-digitalocean">Hetzner vs DigitalOcean</a>.
-            </p>
-          </article>
-          <article>
-            <h3>Best managed hosting when the site makes money</h3>
-            <p>
-              Shared hosting gets brittle once staging and PHP updates are someone else’s
-              Friday night. <a href="/reviews/cloudways">Cloudways</a> sits between a naked
-              VPS and hiring DevOps.
-              <a href="/guides/hostinger-vs-cloudways">Hostinger vs Cloudways</a> is the
-              upgrade path.
-            </p>
-            <div class="job-cta">
-              <a class="btn btn-ghost" href="/guides/hostinger-vs-cloudways">When to upgrade</a>
-              <a class="btn btn-primary" data-affiliate="cloudways" href={affiliateUrl(cloudways)} rel="nofollow sponsored noopener" target="_blank">
-                Visit Cloudways
-              </a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap split">
-        <div class="panel">
-          <h2>Web hosting prices and specs (2026)</h2>
-          <p class="muted">
-            Intro numbers from public pages. Renewals, taxes, and add-ons change the real cost.
-          </p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Provider</th>
-                  <th>Type</th>
-                  <th>From</th>
-                  <th>Best for</th>
-                  <th>Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  hosts.map((host) => (
-                    <tr>
-                      <td>
-                        <a href={`#${host.slug}`}>{host.name}</a>
-                      </td>
-                      <td>{host.productType}</td>
-                      <td>{host.fromPrice}/mo</td>
-                      <td>{host.bestFor}</td>
-                      <td>{host.score.toFixed(1)}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <aside class="panel pick-list">
-          <h2>Short answers</h2>
-          <p>Best cheap WordPress hosting: <strong>Hostinger</strong></p>
-          <p>Best VPS per euro: <strong>Hetzner</strong></p>
-          <p>Best managed cloud: <strong>Cloudways</strong></p>
-          <p>Best VPS tutorials: <strong>DigitalOcean</strong></p>
-          <p>Cheapest domain + tiny site: <strong>Namecheap</strong></p>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>You have a site. Next: a list.</h2>
-          <p>
-            Hosting gets the page live. Email is how you talk to people without
-            renting an algorithm. Same five-pick shape, different job:
-            <a href="/email">best email marketing 2026</a> — Kit for creators,
-            Brevo if the invoice is the constraint.
-          </p>
-        </div>
-        <div class="job-cta">
-          <a class="btn btn-ghost" href="/email">Email ranking</a>
-          <a class="btn btn-primary" href="/reviews/kit">Kit review</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>How we ranked the best web hosts</h2>
-          <p>
-            Ease of getting a site live this week weighs more than raw CPU. Renewal honesty
-            weighs more than the first-month screenshot. A path to grow is the third filter.
-            Lab speed tests are not part of this version.
-          </p>
-        </div>
-        <div class="audience method-grid">
-          <article>
-            <h3>Time to a live site</h3>
-            <p>Can someone with no sysadmin background buy a plan, attach a domain, turn on SSL, and publish this week.</p>
-          </article>
-          <article>
-            <h3>Price honesty</h3>
-            <p>Is the advertised number close to month 13, or is the homepage a 48-month teaser.</p>
-          </article>
-          <article>
-            <h3>Room to grow</h3>
-            <p>When the brochure becomes a shop, can they scale without a panicked weekend migration.</p>
-          </article>
-        </div>
-        <p class="muted method-link">Read the full method on the <a href="/methodology">methodology page</a>.</p>
-      </div>
-    </section>
-
-    <section class="section" id="guides">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Hosting comparison guides</h2>
-          <p>
-            Longer pages for the searches this ranking cannot answer in one table:
-            Hostinger vs Namecheap, Hetzner vs DigitalOcean, cheap WordPress hosting,
-            and shared vs VPS.
-          </p>
-        </div>
-        <div class="guides">
-          {
-            guides.filter((guide) => guide.vertical !== "email").map((guide) => (
-              <a class="guide-card" href={`/guides/${guide.slug}`}>
-                <div class="kicker">Guide</div>
-                <h3>{guide.title}</h3>
-                <p class="muted">{guide.description}</p>
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Web hosting FAQ</h2>
-        </div>
-        <div class="faq">
-          {
-            faqs.map((faq, i) => (
-              <details open={i === 0}>
-                <summary>{faq.q}</summary>
-                <p>{faq.a}</p>
-              </details>
+            verticals.map((vertical) => (
+              <article class="vertical-card">
+                <div class="kicker">{vertical.kicker}</div>
+                <h2>
+                  <a href={vertical.href}>{vertical.title}</a>
+                </h2>
+                <p>{vertical.lede}</p>
+                <div class="vertical-winner">
+                  <img class="host-mark" src={vertical.markSrc} alt="" width="40" height="40" />
+                  <div>
+                    <div class="label">#1 {vertical.winner.badge}</div>
+                    <strong>{vertical.winner.name}</strong>
+                    <span class="muted">
+                      {vertical.winner.score.toFixed(1)}/10 · from {vertical.winner.fromPrice}/mo
+                    </span>
+                  </div>
+                </div>
+                <ol class="vertical-list">
+                  {vertical.items.map((item) => (
+                    <li>
+                      <a href={`/reviews/${item.slug}`}>
+                        <span>
+                          #{item.rank} {item.name}
+                        </span>
+                        <span class="muted">{item.score.toFixed(1)}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+                <a class="btn btn-primary" href={vertical.href}>
+                  Open {vertical.kicker.toLowerCase()} ranking
+                </a>
+              </article>
             ))
           }
         </div>

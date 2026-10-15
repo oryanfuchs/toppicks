@@ -12,7 +12,7 @@ if (!guide) {
   throw new Error("Missing guide");
 }
 
-const rankingHref = guide.rankingHref ?? "/";
+const rankingHref = guide.rankingHref ?? "/hosting";
 const rankingLabel = guide.rankingLabel ?? "Best web hosting 2026";
 const others = guides
   .filter((item) => item.slug !== guide.slug && (item.vertical ?? "hosting") === (guide.vertical ?? "hosting"))
@@ -89,7 +89,7 @@ const jsonLd = {
         </li>
       ))}
       <li>
-        <a href={guide.vertical === "email" ? "/email" : "/#ranking"}>{rankingLabel} ranking</a>
+        <a href={guide.vertical === "email" ? "/email" : "/hosting"}>{rankingLabel} ranking</a>
       </li>
     </ul>
   </main>

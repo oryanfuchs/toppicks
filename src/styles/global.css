@@ -111,6 +111,61 @@ nav a:hover { color: var(--ink); }
   border-bottom: 1px solid var(--line);
   background: linear-gradient(180deg, #eaf2ff 0%, #ffffff 100%);
 }
+.home-hero { padding-bottom: 48px; }
+
+.vertical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.vertical-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vertical-card h2 { margin: 0; }
+.vertical-card h2 a { text-decoration: none; }
+.vertical-card h2 a:hover { color: var(--gold-2); }
+.vertical-card > p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.vertical-card .btn { width: 100%; margin-top: auto; }
+.vertical-winner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.vertical-winner .label {
+  color: var(--gold);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.vertical-winner strong { display: block; font-size: 1.05rem; }
+.vertical-winner .muted { display: block; font-size: 0.8rem; }
+.vertical-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.vertical-list li + li { border-top: 1px solid var(--line); }
+.vertical-list a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.vertical-list a:hover { color: var(--gold-2); }
 .hero-grid {
   display: grid;
   grid-template-columns: 1.35fr 0.75fr;
@@ -710,7 +765,7 @@ td a { color: var(--gold-2); text-decoration: none; font-weight: 600; }
 }
 
 @media (max-width: 860px) {
-  .hero-grid, .card-body, .split, .guides, .audience, .footer-grid, .review-hero, .proscons, .spec-grid, .jump-row {
+  .hero-grid, .card-body, .split, .guides, .audience, .footer-grid, .review-hero, .proscons, .spec-grid, .jump-row, .vertical-grid {
     grid-template-columns: 1fr;
   }
   .cta-col { min-width: 0; }

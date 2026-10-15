@@ -20,7 +20,7 @@ export function catalogBySlug(slug: string): CatalogItem | undefined {
       pick: host,
       visitUrl: affiliateUrl(host),
       markSrc: `/hosts/${host.slug}-mark.svg`,
-      rankingHref: "/#ranking",
+      rankingHref: "/hosting",
       rankingLabel: "Best web hosting 2026",
       others: hosts.filter((item) => item.slug !== slug),
     };
