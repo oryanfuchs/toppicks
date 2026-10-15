@@ -20,7 +20,7 @@ export function emailAffiliateUrl(tool: EmailTool): string {
     kit: import.meta.env.PUBLIC_AFFILIATE_KIT || "https://kit.com",
     brevo: import.meta.env.PUBLIC_AFFILIATE_BREVO || "https://www.brevo.com",
     mailchimp: import.meta.env.PUBLIC_AFFILIATE_MAILCHIMP || "https://mailchimp.com",
-    beehiiv: import.meta.env.PUBLIC_AFFILIATE_BEEHIIV || "https://www.beehiiv.com",
+    beehiiv: import.meta.env.PUBLIC_AFFILIATE_BEEHIIV || "https://www.beehiiv.com/?via=oryan-fuchs",
     getresponse: import.meta.env.PUBLIC_AFFILIATE_GETRESPONSE || "https://www.getresponse.com",
   };
   return urls[tool.websiteKey];
