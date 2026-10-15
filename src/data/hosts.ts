@@ -42,7 +42,7 @@ export function affiliateUrl(host: Host): string {
       import.meta.env.PUBLIC_AFFILIATE_HETZNER || "https://www.hetzner.com/cloud",
     cloudways:
       import.meta.env.PUBLIC_AFFILIATE_CLOUDWAYS ||
-      "https://www.awin1.com/cread.php?awinmid=89935&awinaffid=3121479&ued=https%3A%2F%2Fplatform.cloudways.com%2Fsignup",
+      "https://www.cloudways.com/en/?id=2218230",
     digitalocean:
       import.meta.env.PUBLIC_AFFILIATE_DIGITALOCEAN ||
       "https://www.digitalocean.com/",
